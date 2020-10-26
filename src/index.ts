@@ -1,5 +1,8 @@
 import { getRandomId, getScrollTop, getOffset, debounce } from "./util";
 
+const assign = require('es6-object-assign').assign;
+const find = require('array.prototype.find').shim();
+
 type Option = {
     speed: "auto" | number
 }
@@ -26,7 +29,7 @@ export default class Shifty {
             this.elements = document.querySelectorAll(selector);
         }
         this.controls = [];
-        this.options = Object.assign({}, defaults, option);
+        this.options = assign({}, defaults, option);
         this.move = 0;
         this.setup();
         if ("requestAnimationFrame" in window) {
