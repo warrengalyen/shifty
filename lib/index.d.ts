@@ -6,6 +6,7 @@ export default class Shifty {
     options: Option;
     move: number;
     constructor(selector: string | NodeList, option?: {});
+    setBestImg(element: HTMLElement, insert: HTMLElement): void;
     setup(): void;
     setImgRatio(element: HTMLElement, image: string): void;
     run(): void;

@@ -1,4 +1,4 @@
-import { getRandomId, getScrollTop, getOffset } from "./util";
+import { getRandomId, getScrollTop, getOffset, debounce } from "./util";
 
 type Option = {
     speed: "auto" | number
@@ -28,6 +28,53 @@ export default class Shifty {
         } else {
             setInterval(this.run.bind(this), 1000 / 60);
         }
+        window.addEventListener('resize', debounce(() => {
+            [].forEach.call(this.elements, (element: HTMLElement) => {
+                const { id } = element.dataset;
+                if (id) {
+                    const insert = document.getElementById(id);
+                    if (insert) {
+                        this.setBestImg(element, insert);
+                    }
+                }
+            });
+        }, 100));
+    }
+
+    setBestImg (element: HTMLElement, insert: HTMLElement) {
+        const width = window.innerWidth;
+        const img = element.dataset.img as string;
+        let backgroundImage = img;
+        const points = Object.keys(element.dataset).reduce<{point: number, src: string}[]>((ac, key) => {
+            if (/img-\d*/.test(key)) {
+                const match = key.match(/img-(\d*)/);
+                if (match && match[1]) {
+                    const point = parseInt(match[1], 10);
+                    ac.push({
+                        point,
+                        src: element.dataset[key] as string
+                    });
+                }
+            }
+            return ac;
+        }, []);
+        points.sort((pointA, pointB) => {
+            if (pointA.point < pointB.point) {
+                return -1;
+            }
+            return 1;
+        });
+        const point = points.find((p) => {
+            if (width < p.point) {
+                return true;
+            }
+            return false;
+        });
+        if (point) {
+            backgroundImage = point.src;
+        }
+        insert.style.backgroundImage = `url(${backgroundImage})`;
+        this.setImgRatio(element, backgroundImage);
     }
 
     setup () {
@@ -37,15 +84,8 @@ export default class Shifty {
             const id = getRandomId();
             element.dataset.id = id;
             const insert = document.createElement('div');
-            // const desktopImg = element.dataset.desktopImg as string;
-            const img = element.dataset.img as string;
-            let backgroundImage = img;
             element.insertBefore(insert, null);
-            // if (window.innerWidth > 767) {
-            //     backgroundImage = desktopImg;
-            // }
-            insert.style.backgroundImage = `url(${backgroundImage})`;
-            this.setImgRatio(element, backgroundImage);
+            this.setBestImg(element, insert);
             insert.id = id;
             insert.style.position = 'absolute';
             insert.style.top = '0';
@@ -110,7 +150,7 @@ export default class Shifty {
             }
             const final = bottom + (move * speed);
             if (move !== this.move) {
-                insert.style.transform = `translate3d(0px, ${final}px, 0px)`;
+                insert.style.transform = `translate3d(0px, ${Math.round(final)}px, 0px)`;
             }
             this.move = move;
         });
