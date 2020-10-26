@@ -80,18 +80,42 @@
             justify-content: center;
         }
 
+        code {
+            background-color: #333;
+            color: #FFF;
+            display: inline-block;
+            padding: 3px 5px;
+            border-radius: 3px;
+        }
+
         .button:not(.is-cross):not(.is-burger):not(.is-ghost) {
             color: #333;
+        }
+
+        .parallax {
+            display: flex;
+            justify-content: center;
+        }
+        .parallax-title {
+            color: #FFF;
+            font-size: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section h3 {
+            font-size: 2rem;
         }
     </style>
 </head>
 
 <body>
-<div class="hero js-parallax" data-img="https://source.unsplash.com/pb_lF8VWaPU/1600x900">
-    <header class="header is-bar is-fixed">
+<div class="hero" style="background-image:url(https://images.unsplash.com/photo-1565275706395-d452122d6cfc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80)">
+    <header class="header is-bar">
         <div class="inner is-medium">
             <h1 class="logo">Shifty</h1>
             <div class="menu is-hide-small">
+                <a href="#reason">Reason</a>
                 <a href="#quick-start">Quick Start</a>
                 <a href="#demo">Demo</a>
                 <a href="https://github.com/wgalyen/shifty">GitHub</a>
@@ -114,9 +138,7 @@
                     </p>
                 </div>
                 <div class="grid-cell is-col-fit unim-logo-box">
-                    <!-- <div class="unim-logo is-shadow"> -->
-                    <!-- <img src="./images/logo_Pax01.svg"> -->
-                    <!-- </div> -->
+
                 </div>
             </div>
         </div>
@@ -128,14 +150,34 @@
     <div class="content">
         <section class="section">
             <div class="inner is-small">
-                <h2 id="quick-start">Quick start</h2>
+                <h2 class="section-title" id="reason">Reason</h2>
+                <p>There are prenty of libraries out there to add parallax effects<br/>
+                    But still, We had reasons we had to make this library.</p>
+                <h3>1. Simplicity</h3>
+                <p>We just want to add parallax effects to <code>background-image</code> and We don't need to add effects to any other elements too</p>
+                <h3>2. Speed Control</h3>
+                <p>
+                    Almost all libraries that we encountered, need <code>speed</code> option<br/>
+                    but What if the images are too small that images can't move anymore?
+                    In some cases, it's difficult to set the speed of parallax effects.<br/>
+                    That's why, We want the library to set the speed by itself, So that the whole image will be shown during scroll
+                </p>
+            </div>
+        </section>
+        <section class="hero parallax js-parallax" style="height:400px;" data-img="https://images.unsplash.com/photo-1565275706395-d452122d6cfc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80">
+            <h2 class="parallax-title">Demo</h2>
+        </section>
+        <section class="section">
+            <div class="inner is-small">
+                <h2 class="section-title" id="quick-start">Quick start</h2>
+                <h3>Installation</h3>
                 <p>Add the following description in the
                     <code>&lt;head&gt;</code> tag of the web page you want to use Shifty.</p>
                 <p>You can also bundle the library with Browserify/Webpack</p>
                 <pre><code class="javascript">import Shifty from 'shifty'</code></pre>
                 <p>Just replace the <code>style="background-image:url(...)"</code> to <code>data-img="..."</code></p>
                 <pre><code class="html">&lt;div class="js-parallax"
-  data-img="https://source.unsplash.com/pb_lF8VWaPU/1600x900"&gt;
+ data-img="https://images.unsplash.com/photo-1565275706395-d452122d6cfc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"&gt;
   &lt;p&gt;contents here&lt;/p&gt;
 &lt;/div&gt;</code></pre>
                 <p>Write the following script</p>
@@ -144,8 +186,34 @@
         </section>
 
 
+        <section class="hero parallax js-parallax" style="height:400px;" data-img="https://images.unsplash.com/photo-1567049352286-1efb05c5c6a8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80">
+            <h2 class="parallax-title">Demo2</h2>
+        </section>
 
-        <section class="section" style="background-image:url(https://source.unsplash.com/pb_lF8VWaPU/1600x900)">
+
+        <section class="section">
+            <div class="inner is-small">
+                <h2 class="section-title" id="options">Options</h2>
+                <h3>breakpoints</h3>
+                <p>You can also set some breakpoints so that you can optimize image size in accordance with the screen size.</p>
+                <p>Add the following description to the target tag.</p>
+                <pre><code class="html">&lt;div class="js-parallax"
+  data-img="./path/to/default-image"
+  data-img-768="./path/to/image-which-size-is-larger-than-768"
+  data-img-1024="./path/to/image-which-size-is-larger-than-1024"
+&gt;
+  &lt;p&gt;contents here&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+                <p>And write the following script</p>
+                <pre><code class="js">new Shifty('.js-scrollable');</code></pre>
+                <p>You can also use <code>NodeList</code> instead of string</p>
+                <pre><code class="js">new Shifty(document.querySelectorAll('.js-scrollable'));</code></pre>
+            </div>
+        </section>
+
+
+
+        <section class="section" style="background-image:url(https://images.unsplash.com/photo-1565275706395-d452122d6cfc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80)">
             <div class="inner">
                 <div class="grid is-gutter is-middle is-center">
                     <div class="grid-cell">
@@ -166,32 +234,6 @@
 
 <footer class="footer is-bar">
     <div class="inner">
-        <!-- <div class="menu is-list">
-      <div class="menu-group">
-        <strong>Data</strong>
-        <a href="#">Home</a>
-        <a href="#">Works</a>
-        <a href="#">Profile</a>
-        <a href="#">Contact</a>
-      </div>
-      <div class="menu-group">
-        <strong>Detail</strong>
-        <a href="#">Home</a>
-        <a href="#">Works</a>
-        <a href="#">Profile</a>
-      </div>
-      <div class="menu-group">
-        <strong>Heading</strong>
-        <a href="#">Home</a>
-        <a href="#">Works</a>
-      </div>
-      <div class="menu-group">
-        <strong>Body</strong>
-        <a href="#">Home</a>
-        <a href="#">Works</a>
-        <a href="#">Profile</a>
-      </div>
-    </div> -->
         <div class="menu">
             <a href="https://github.com/appleple/wgalyen">GitHub</a>
         </div>

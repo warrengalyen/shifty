@@ -1,16 +1,16 @@
 {
   "name": "shifty-js",
-  "version": "0.0.2",
-  "description": "Simple Javascript Library for Parallax",
+  "version": "1.0.0",
+  "description": "Simple Javascript Library to add parallax image effect to background-image",
   "main": "lib/index.js",
   "type": "lib/index.d.ts",
   "scripts": {
     "test": "jest",
     "dev": "webpack-dev-server --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js",
+    "build": "webpack --config webpack.prod.js && cp bundle/shifty.js docs/shifty.js",
     "build:lib": "tsc",
     "np": "np --no-cleanup",
-    "deploy": "npm-run-all -s build build:lib test np"
+    "deploy": "npm-run-all -s build build:lib np"
   },
   "publishConfig": {
     "access": "public"
@@ -42,8 +42,5 @@
     "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.10",
     "webpack-merge": "^4.1.5"
-  },
-  "dependencies": {
-    "@types/jquery": "^3.3.28"
   }
 }
