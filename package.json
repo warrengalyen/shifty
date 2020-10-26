@@ -1,6 +1,6 @@
 {
   "name": "shifty-js",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Simple Javascript Library to add parallax image effect to background-image",
   "main": "lib/index.js",
   "type": "lib/index.d.ts",
